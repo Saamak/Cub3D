@@ -1,14 +1,15 @@
 #include "../../includes/cub3D.h"
 
-void	print_map(t_map *map)
+void	print_map(char **map)
 {
-	printf(B_Y"\n\nMap :\n\n"RESET);
-	int i;
+	int	i;
 
 	i = 0;
-	while (map->map[i])
+	printf(B_Y"\n\n----|Map read [OK]\n\n"RESET);
+	while (map[i])
 	{
-		printf("%s\n", map->map[i]);
+		printf("%s\n", map[i]);
 		i++;
 	}
+	printf("\n\n");
 }

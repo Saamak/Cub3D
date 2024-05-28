@@ -7,7 +7,7 @@ void	get_map_path(char *path, t_map *game)
 	printf(B_G"\n----|Map path : %s [OK]\n"RESET, game->map_path);
 }
 
-void	read_map(t_map *map)
+void	read_map(t_core *c)
 {
 	char	*line;
 	char	*all_lines;
@@ -18,16 +18,16 @@ void	read_map(t_map *map)
 	all_lines[0] = '\0';
 	while (1)
 	{
-		line = get_next_line(map->fd);
+		line = get_next_line(c->map->fd);
 		if (line == NULL)
 			break ;
 		nb_line ++;
 		all_lines = ft_strjoin(all_lines, line);
 		free(line);
 	}
-	map->map = ft_split(all_lines, '\n', map);
-	print_map(map);
+	c->map->map = ft_split(all_lines, '\n', c->map);
+	print_map(c->map->map);
 	free(all_lines);
 	free(line);
-	close(map->fd);
+	close(c->map->fd);
 }
