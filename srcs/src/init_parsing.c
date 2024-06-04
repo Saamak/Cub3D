@@ -1,5 +1,17 @@
 #include "../../includes/cub3D.h"
 
+t_core	*init_texture(t_core *c)
+{
+	c->texture->no = NULL;
+	c->texture->so = NULL;
+	c->texture->we = NULL;
+	c->texture->ea = NULL;
+	c->texture->F = 0;
+	c->texture->C = 0;
+	c->texture->bool_rgb = 0;
+	return c;
+}
+
 t_core	*init_core(t_core *c)
 {
 	c = malloc(sizeof(t_core));
@@ -25,9 +37,5 @@ t_core	*init_core(t_core *c)
 		perror("Error allocating memory for texture");
 		exit(EXIT_FAILURE);
 	}
-	c->texture->no = NULL;
-	c->texture->so = NULL;
-	c->texture->we = NULL;
-	c->texture->ea = NULL;
-	return c;
+	return (init_texture(c));
 }

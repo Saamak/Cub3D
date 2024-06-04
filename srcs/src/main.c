@@ -12,19 +12,11 @@ int main (int argc, char **argv)
 	printf(B_Y"Cub3D input verifications...\n"RESET);
 	first_checks_hub(argc, argv, c);
 	if (c->map->error)
-	{
-		free(c->map->map);
-		free(c->map);
-		free(c->texture);
-		free(c);
-		return (1);
-	}
+		free_parsing(c);
 	read_map(c);
-	free_map(c->map);
-	free(c->map);
-	free(c->texture);
-	free(c);
+	take_map_data(c);
+	print_texture(c);
+	free_parsing(c);
 	printf("\n\n\n------------------------------------\n");
-
 	return 0;
 }

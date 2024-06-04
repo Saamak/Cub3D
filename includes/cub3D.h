@@ -32,6 +32,11 @@ typedef struct s_texture
 	char	*so;
 	char	*we;
 	char	*ea;
+	char	*F;
+	char	*C;
+	int 	rgb_f;
+	int 	rgb_c;
+	int		bool_rgb;
 }				t_texture;
 
 typedef struct map_core
@@ -48,18 +53,23 @@ void	get_map_path(char *path, t_map *game);
 
 //Parsing
 void	read_map(t_core *core);
+void	take_map_data(t_core *c);
 
 //Init
 t_core	*init_core(t_core *core);
 
 //print
 void	print_map(char **map);
+void	print_texture(t_core *c);
 
 //utils
 char	**ft_split(char *s, char c, t_map *map);
 char	*ft_substr(char *s, int start, int len);
+char	**splitt(char *s, char c);
 
 //free
 void	free_map(t_map *map);
+void	free_parsing(t_core *c);
+void	free_tab(char **tab);
 
 #endif
