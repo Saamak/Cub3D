@@ -24,6 +24,13 @@ typedef struct s_map
 	int		i;
 	char	*map_path;
 	char	**map;
+	char	**data;
+	int		NO;
+	int		SO;
+	int		WE;
+	int		EA;
+	int		C;
+	int		F;
 }				t_map;
 
 typedef struct s_texture
@@ -47,8 +54,8 @@ typedef struct map_core
 
 
 //Input_verifs
-int 	file_exists(char *filename);
-int	first_checks_hub(int ac, char **av, t_core *core);
+int		file_exists(char *filename);
+int		first_checks_hub(int ac, char **av, t_core *core);
 void	get_map_path(char *path, t_map *game);
 
 //Parsing
@@ -71,5 +78,6 @@ char	**splitt(char *s, char c);
 void	free_map(t_map *map);
 void	free_parsing(t_core *c);
 void	free_tab(char **tab);
+void	ft_exit(t_core *c);
 
 #endif

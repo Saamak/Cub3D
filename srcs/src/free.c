@@ -1,5 +1,32 @@
 #include "../../includes/cub3D.h"
 
+void	ft_exit(t_core *c)
+{
+	if (c->texture->no)
+		free(c->texture->no);
+	if (c->texture->so)
+		free(c->texture->so);
+	if (c->texture->we)
+		free(c->texture->we);
+	if (c->texture->ea)
+		free(c->texture->ea);
+	if (c->texture->C)
+		free(c->texture->C);
+	if (c->texture->F)
+		free(c->texture->F);
+	if (c->texture)
+		free(c->texture);
+	if (c->map)
+	{
+		free_map(c->map);
+		free(c->map);
+	}
+	if (c)
+		free(c);
+	exit(1);
+}
+
+
 void	free_tab(char **tab)
 {
 	int i;
@@ -18,6 +45,8 @@ void	free_map(t_map *map)
 	int i;
 
 	i = 0;
+	if (map->map == NULL)
+		return ;
 	while (map->map[i])
 	{
 		free(map->map[i]);
@@ -40,6 +69,12 @@ void	free_parsing(t_core *c)
 	{
 		free_map(c->map);
 		free(c->map);
+		free(c->texture->no);
+		free(c->texture->so);
+		free(c->texture->we);
+		free(c->texture->ea);
+		free(c->texture->C);
+		free(c->texture->F);
 		free(c->texture);
 		free(c);
 	}

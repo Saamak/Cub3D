@@ -42,14 +42,11 @@ int	first_checks_hub(int ac, char **av, t_core *c)
 		c->map->error = 1;
 		return (1);
 	}
-	printf(B_G"\n----|Input user [OK]\n");
 	if(!file_exists(av[1]))
 	{
 		c->map->error = 1;
 		return (1);
 	}
-	else
-		printf(B_G"\n----|Map exist [OK]"RESET);
 	get_map_path(av[1], c->map);
 	return (0);
 }

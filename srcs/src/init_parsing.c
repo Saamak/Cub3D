@@ -9,6 +9,12 @@ t_core	*init_texture(t_core *c)
 	c->texture->F = 0;
 	c->texture->C = 0;
 	c->texture->bool_rgb = 0;
+	c->map->NO = 0;
+	c->map->SO = 0;
+	c->map->WE = 0;
+	c->map->EA = 0;
+	c->map->C = 0;
+	c->map->F = 0;
 	return c;
 }
 
@@ -27,6 +33,7 @@ t_core	*init_core(t_core *c)
 		exit(EXIT_FAILURE);
 	}
 	c->map->map = NULL;
+	c->map->data = NULL;
 	c->map->map_path = NULL;
 	c->map->fd = 0;
 	c->map->i = 0;
