@@ -48,6 +48,7 @@ typedef struct s_texture
 
 typedef struct map_core
 {
+	int			first_data;
 	t_map		*map;
 	t_texture	*texture;
 }			t_core;
@@ -56,11 +57,13 @@ typedef struct map_core
 //Input_verifs
 int		file_exists(char *filename);
 int		first_checks_hub(int ac, char **av, t_core *core);
-void	get_map_path(char *path, t_map *game);
+void	get_map_path(char *path, t_core *c);
 
 //Parsing
-void	read_map(t_core *core);
+void	read_hub(t_core *c);
 void	take_map_data(t_core *c);
+void	is_textures(char *line, t_core *c);
+void	is_colors(char *line, t_core *c);
 
 //Init
 t_core	*init_core(t_core *core);

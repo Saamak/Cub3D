@@ -52,45 +52,17 @@
 
 // void	assign_texture(t_core *c, int i ,int j)
 // {
-// 	if (c->map->map[i][j] == 'N' && c->map->map[i][j + 1] == 'O')
-// 		c->texture->no = ft_substr(c->map->map[i], j + 3,
-// 			ft_strlen(c->map->map[i]) - j - 2);
-// 	if (c->map->map[i][j] == 'S' && c->map->map[i][j + 1] == 'O')
-// 		c->texture->so = ft_substr(c->map->map[i], j + 3,
-// 			ft_strlen(c->map->map[i]) - j - 2);
-// 	if (c->map->map[i][j] == 'W' && c->map->map[i][j + 1] == 'E')
-// 		c->texture->we = ft_substr(c->map->map[i], j + 3,
-// 			ft_strlen(c->map->map[i]) - j - 2);
-// 	if (c->map->map[i][j] == 'E' && c->map->map[i][j + 1] == 'A')
-// 		c->texture->ea = ft_substr(c->map->map[i], j + 3,
-// 			ft_strlen(c->map->map[i]) - j - 2);
-// 	if (c->map->map[i][j] == 'F' && c->map->map[i][j + 1] == ' ')
-// 		c->texture->F = ft_substr(c->map->map[i], j + 2,
-// 			ft_strlen(c->map->map[i]) - j - 1);
-// 	if (c->map->map[i][j] == 'C' && c->map->map[i][j + 1] == ' ')
-// 		c->texture->C = ft_substr(c->map->map[i], j + 2,
-// 			ft_strlen(c->map->map[i]) - j - 1);
+
 // }
 
-// void	take_map_data(t_core *c)
-// {
-// 	int i;
-// 	int j;
-// 	int fd;
-
-// 	i = 0;
-// 	j = 0;
-// 	while (c->map->map[i])
-// 	{
-// 		while(c->map->map[i][j])
-// 		{
-// 			assign_texture(c, i, j);
-// 			fd = open(game->map_path, O_RDONLY);
-
-// 			j++;
-// 		}
-// 		j = 0;
-// 		i++;
-// 	}
-// 	convert_color(c);
-// }
+void	take_map_data(t_core *c)
+{
+	if (c->first_data == 1)
+	{
+		printf(B_G" -> Checking Textures\n"RESET);
+	}
+	else if (c->first_data == 2)
+	{
+		printf(B_G" -> Checking Colors\n"RESET);
+	}
+}

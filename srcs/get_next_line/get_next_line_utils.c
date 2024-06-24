@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 11:48:52 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/06/10 17:37:48 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:25:16 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ft_substr(char *s, int start, int len)
 	ptr = malloc(len + 1);
 	if (!ptr)
 		return (NULL);
-	while (i < len && s[start] != '\0' && s[start] != '\n')
+	while (i < len && s[start] != '\0')
 	{
 		ptr[i] = s[start];
 		start++;

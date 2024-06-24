@@ -1,83 +1,64 @@
 #include "../../includes/cub3D.h"
 
-void	process(t_core *c, char *line, char b)
+void	is_colors(char *line, t_core *c)
 {
-	if (b == 'N')
-	{
-		c->texture->no = ft_substr(line, 3, ft_strlen(line) - 2);
-		if(!file_exists(c->texture->no))
-			ft_exit(c);
-	}
-	if (b == 'S')
-	{
-		c->texture->so = ft_substr(line, 3, ft_strlen(line) - 2);
-		if (!file_exists(c->texture->so))
-			ft_exit(c);
-	}
-	if (b == 'W')
-	{
-		c->texture->we = ft_substr(line, 3, ft_strlen(line) - 2);
-		if (!file_exists(c->texture->we))
-			ft_exit(c);
-	}
-	if (b == 'E')
-	{
-		c->texture->ea = ft_substr(line, 3, ft_strlen(line) - 2);
-		if (!file_exists(c->texture->ea))
-			ft_exit(c);
-	}
+	while (*line == ' ')
+		line++;
+	if (*line == '\n')
+		return ;
+	if (*line == 'F' || *line == 'C')
+		c->first_data = 2;
 }
 
-
-void view_line(char *line, t_core *c)
+void	is_textures(char *line, t_core *c)
 {
-	if (line[0] == 'N' && line[0 + 1] == 'O' && line[0 + 2] == ' ')
-		process(c, line, 'N');
-	else if (line[0] == 'S' && line[0 + 1] == 'O' && line[0 + 2] == ' ')
-		process(c, line, 'S');
-	else if (line[0] == 'W' && line[0 + 1] == 'E' && line[0 + 2] == ' ')
-		process(c, line, 'W');
-	else if (line[0] == 'E' && line[0 + 1] == 'A' && line[0 + 2] == ' ')
-		process(c, line, 'E');
-	// if (line[i] == 'F' && line[i + 1] == ' ')
-	// 	process(c, line, i);
-	// if (line[i] == 'C' && line[i + 1] == ' ')
-	// 	process(c, line, i);
-	else
-	{
-		printf("Error : wrong map data\n");
-		ft_exit(c);
-	}
+	while (*line == ' ')
+		line++;
+	if (*line == '\n')
+		return ;
+	if ((*line == 'N' && *(line + 1) == 'O')
+		|| (*line == 'S' && *(line + 1) == 'O')
+		|| (*line == 'W' && *(line + 1) == 'E')
+		|| (*line == 'E' && *(line + 1) == 'A'))
+		if (line[2] == ' ')
+			c->first_data = 1;
 }
 
-void	get_map_path(char *path, t_map *game)
+void	is_first(int fd, t_core *c) // Quelle data en premier ?
 {
-	game->map_path = path;
-	game->fd = open(game->map_path, O_RDONLY);
-}
-
-void	read_map(t_core *c)
-{
-	char	*line;
-	char	*map;
-	int		nb_line;
-
-	nb_line = 0;
-	map = malloc(sizeof(char) * 1);
-	map[0] = '\0';
-	while (1)
+	char *line;
+	line = get_next_line(fd);
+	printf("d = [%s]\n", line);
+	while(line && line[0] == '\n')
 	{
-		line = get_next_line(c->map->fd);
-		if (line == NULL)
-			break ;
-		view_line(line, c);
-		nb_line ++;
-		map = ft_strjoin(map, line);
 		free(line);
+		line = get_next_line(fd);
+		if (!line)
+		{
+			c->map->error = 1;
+			printf(B_R" Error : empty map \u274c \n"RESET);
+			return ;
+		}
+		printf("d = [%s]\n", line);
 	}
-	c->map->map = ft_split(map, '\n', c->map);
-	// print_map(c->map->map);
-	free(map);
-	free(line);
-	close(c->map->fd);
+	is_textures(line, c);
+	is_colors(line, c);
+	if (c->first_data == 0)
+	{
+		c->map->error = 1;
+		printf(B_R" Error : Wrong map data \u274c \n"RESET);
+	}
+}
+
+void	read_hub(t_core *c)
+{
+	c->map->fd = open(c->map->map_path, O_RDONLY);
+	if (c->map->fd == -1)
+	{
+		printf(B_R" Error : Can't open file \u274c \n"RESET);
+		c->map->error = 1;
+		exit(0) ;
+	}
+	is_first(c->map->fd, c);
+	take_map_data(c);
 }
