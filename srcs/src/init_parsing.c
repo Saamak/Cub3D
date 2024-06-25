@@ -39,9 +39,8 @@ t_core	*init_core(t_core *c)
 	c->map->i = 0;
 	c->map->error = 0;
 	c->texture = malloc(sizeof(t_texture));
-	c->first_data = 0;
 	c->line = NULL;
-	c->texture_ok = 0;
+	c->data_ok = 0;
 	if (!c->texture)
 	{
 		perror("Error allocating memory for texture");

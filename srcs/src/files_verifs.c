@@ -6,7 +6,7 @@ int file_exists(char *filename)
 	if (fd == -1)
 	{
 		printf(B_R" \n Error : File %s does not exist \u274c \n\n"RESET, filename);
-		return 0;
+		exit(0);
 	}
 	else
 	{

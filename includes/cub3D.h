@@ -48,7 +48,7 @@ typedef struct s_texture
 
 typedef struct map_core
 {
-	int			first_data;
+	int			data_ok;
 	int			texture_ok;
 	char		*line;
 	t_map		*map;
