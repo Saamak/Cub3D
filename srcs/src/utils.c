@@ -49,3 +49,13 @@ char	**splitt(char *s, char c)
 	dest[x] = NULL;
 	return (dest);
 }
+
+int str_len_modif(char *s)
+{
+	int i;
+
+	i = 0;
+	while (s[i] != '\0' && s[i] != '\n')
+		i++;
+	return (i);
+}

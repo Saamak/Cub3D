@@ -26,23 +26,22 @@ void	is_textures(char *line, t_core *c)
 
 void	is_first(int fd, t_core *c) // Quelle data en premier ?
 {
-	char *line;
-	line = get_next_line(fd);
-	printf("d = [%s]\n", line);
-	while(line && line[0] == '\n')
+	c->line = get_next_line(fd);
+	printf("d = [%s]\n", c->line);
+	while(c->line && c->line[0] == '\n')
 	{
-		free(line);
-		line = get_next_line(fd);
-		if (!line)
+		free(c->line);
+		c->line = get_next_line(fd);
+		if (!c->line)
 		{
 			c->map->error = 1;
 			printf(B_R" Error : empty map \u274c \n"RESET);
 			return ;
 		}
-		printf("d = [%s]\n", line);
+		printf("d = [%s]\n", c->line);
 	}
-	is_textures(line, c);
-	is_colors(line, c);
+	is_textures(c->line, c);
+	is_colors(c->line, c);
 	if (c->first_data == 0)
 	{
 		c->map->error = 1;

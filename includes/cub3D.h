@@ -49,6 +49,8 @@ typedef struct s_texture
 typedef struct map_core
 {
 	int			first_data;
+	int			texture_ok;
+	char		*line;
 	t_map		*map;
 	t_texture	*texture;
 }			t_core;
@@ -76,6 +78,7 @@ void	print_texture(t_core *c);
 char	**ft_split(char *s, char c, t_map *map);
 char	*ft_substr(char *s, int start, int len);
 char	**splitt(char *s, char c);
+int str_len_modif(char *s);
 
 //free
 void	free_map(t_map *map);
