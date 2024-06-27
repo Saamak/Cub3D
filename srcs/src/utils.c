@@ -1,5 +1,26 @@
 #include "../../includes/cub3D.h"
 
+int its_map(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i] != '\0' || line[i] != '\n')
+	{
+		while(line[i] == ' ' || line[i] == '\t')
+			i++;
+		if (line[i] == '1')
+		{
+			printf(B_Y"   | Map found \xE2\x9C\x93 \n"RESET);
+			return (1);
+		}
+		else
+			return (0);
+	}
+	return (0);
+}
+
+
 int	count_word(char *s, char c)
 {
 	int	c_w;

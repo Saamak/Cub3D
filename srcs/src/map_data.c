@@ -30,7 +30,7 @@ void	convert_rgb_F(t_core *c)
 	b = 0;
 	if (c == NULL || c->texture->F == NULL)
 	{
-		printf("Erreur : les données sont NULL.\n");
+		printf("   Erreur : les données sont NULL.\n");
 		exit(1);
 	}
 	tab = splitt(c->texture->F, ',');
@@ -39,7 +39,7 @@ void	convert_rgb_F(t_core *c)
 	b = atoi(tab[2]);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 	{
-		printf(B_R"Erreur : les valeurs RGB ne sont pas correctes. \u274c \n"RESET);
+		printf(B_R"   Erreur : les valeurs RGB ne sont pas correctes. \u274c \n"RESET);
 		exit(1);
 	}
 	bit_shift_rgb(r, g, b, c);
@@ -59,7 +59,7 @@ void	convert_rgb_C(t_core *c)
 	b = 0;
 	if (c == NULL || c->texture->C == NULL)
 	{
-		printf("Erreur : les données sont NULL.\n");
+		printf("   Erreur : les données sont NULL.\n");
 		c->map->error = 1;
 	}
 	tab = splitt(c->texture->C, ',');
@@ -68,7 +68,7 @@ void	convert_rgb_C(t_core *c)
 	b = atoi(tab[2]);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 	{
-		printf(B_R" Erreur : les valeurs RGB ne sont pas correctes. \u274c \n"RESET);
+		printf(B_R"   Erreur : les valeurs RGB ne sont pas correctes. \u274c \n"RESET);
 		c->map->error = 1;
 	}
 	bit_shift_rgb(r, g, b, c);
@@ -202,22 +202,29 @@ int	is_valid_data (char *line, t_core *c)
 
 void	take_map_data(t_core *c)
 {
-	printf(B_G" -> Checking Data\n"RESET);
-	while (!c->data_ok && c->line && !c->map->error)
+	printf(B_Y"\n -> Checking Data\n\n"RESET);
+	while (!c->data_ok && !its_map(c->line) && c->line && !c->map->error)
 	{
 		while(c->line && c->line[0] == '\n')
 		{
 			free(c->line);
 			c->line = get_next_line(c->map->fd);
 		}
+		if (its_map(c->line))
+			break ;
 		if(!is_valid_data(c->line, c))
 		{
-			printf(B_R" Error : Wrong texture path \u274c \n"RESET);
 			c->map->error = 1;
 			return ;
 		}
+		free(c->line);
 		c->line = get_next_line(c->map->fd);
 		if (c->map->NO && c->map->SO && c->map->WE && c->map->EA && c->map->C && c->map->F)
 			c->data_ok = 1;
+	}
+	if (!c->data_ok)
+	{
+		printf(B_R"   | Erreur : Missing data \u274c \n"RESET);
+		c->map->error = 1;
 	}
 }

@@ -24,7 +24,7 @@
 // 			c->first_data = 1;
 // }
 
-void	is_first(int fd, t_core *c) // Quelle data en premier ?
+void	skip_lines(int fd, t_core *c) // Quelle data en premier ?
 {
 	c->line = get_next_line(fd);
 	while(c->line && c->line[0] == '\n')
@@ -40,15 +40,18 @@ void	is_first(int fd, t_core *c) // Quelle data en premier ?
 	}
 }
 
-void	read_hub(t_core *c)
+int	read_hub(t_core *c)
 {
 	c->map->fd = open(c->map->map_path, O_RDONLY);
 	if (c->map->fd == -1)
 	{
-		printf(B_R" Error : Can't open file \u274c \n"RESET);
+		printf(B_R"   | Error : Can't open file \u274c \n"RESET);
 		c->map->error = 1;
-		exit(0) ;
+		return (0);
 	}
-	is_first(c->map->fd, c);
+	skip_lines(c->map->fd, c);
 	take_map_data(c);
+	if (!c->map->error)
+		printf(B_G"   \n               Data are correct \xE2\x9C\x93 \n"RESET);
+	return (1);
 }

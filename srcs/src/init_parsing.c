@@ -6,8 +6,8 @@ t_core	*init_texture(t_core *c)
 	c->texture->so = NULL;
 	c->texture->we = NULL;
 	c->texture->ea = NULL;
-	c->texture->F = 0;
-	c->texture->C = 0;
+	c->texture->F = NULL;
+	c->texture->C = NULL;
 	c->texture->bool_rgb = 0;
 	c->map->NO = 0;
 	c->map->SO = 0;

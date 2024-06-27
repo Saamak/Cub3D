@@ -57,25 +57,35 @@ void	free_map(t_map *map)
 
 void	free_parsing(t_core *c)
 {
-	if (c->map->error)
+	if (c)
 	{
-		free(c->map->map);
-		free(c->map);
-		free(c->texture);
+		if (c->line)
+			free(c->line);
+		if (c->map)
+		{
+			if (c->map->map)
+				free(c->map->map);
+			if (c->map->data)
+				free(c->map->data);
+			free(c->map);
+		}
+		if (c->texture)
+		{
+			if (c->texture->no)
+				free(c->texture->no);
+			if (c->texture->so)
+				free(c->texture->so);
+			if (c->texture->we)
+				free(c->texture->we);
+			if (c->texture->ea)
+				free(c->texture->ea);
+			if (c->texture->F)
+				free(c->texture->F);
+			if (c->texture->C)
+				free(c->texture->C);
+			free(c->texture);
+		}
 		free(c);
-		exit(1);
 	}
-	if (c->map)
-	{
-		free_map(c->map);
-		free(c->map);
-		free(c->texture->no);
-		free(c->texture->so);
-		free(c->texture->we);
-		free(c->texture->ea);
-		free(c->texture->C);
-		free(c->texture->F);
-		free(c->texture);
-		free(c);
-	}
+	exit(1);
 }

@@ -13,8 +13,8 @@ int main (int argc, char **argv)
 	first_checks_hub(argc, argv, c);
 	if (c->map->error)
 		free_parsing(c);
-	read_hub(c);
-	free_parsing(c);
+	if(!read_hub(c) || c->map->error)
+		free_parsing(c);
 	printf("\n\n\n------------------------------------\n");
 	return 0;
 }

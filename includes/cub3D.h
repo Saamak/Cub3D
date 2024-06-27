@@ -62,10 +62,8 @@ int		first_checks_hub(int ac, char **av, t_core *core);
 void	get_map_path(char *path, t_core *c);
 
 //Parsing
-void	read_hub(t_core *c);
+int	read_hub(t_core *c);
 void	take_map_data(t_core *c);
-void	is_textures(char *line, t_core *c);
-void	is_colors(char *line, t_core *c);
 
 //Init
 t_core	*init_core(t_core *core);
@@ -78,7 +76,8 @@ void	print_texture(t_core *c);
 char	**ft_split(char *s, char c, t_map *map);
 char	*ft_substr(char *s, int start, int len);
 char	**splitt(char *s, char c);
-int str_len_modif(char *s);
+int		str_len_modif(char *s);
+int		its_map(char *line);
 
 //free
 void	free_map(t_map *map);
