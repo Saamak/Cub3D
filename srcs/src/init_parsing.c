@@ -8,7 +8,6 @@ t_core	*init_texture(t_core *c)
 	c->texture->ea = NULL;
 	c->texture->F = NULL;
 	c->texture->C = NULL;
-	c->texture->bool_rgb = 0;
 	c->map->NO = 0;
 	c->map->SO = 0;
 	c->map->WE = 0;
@@ -40,6 +39,7 @@ t_core	*init_core(t_core *c)
 	c->map->error = 0;
 	c->texture = malloc(sizeof(t_texture));
 	c->line = NULL;
+	c->what = 0;
 	c->data_ok = 0;
 	if (!c->texture)
 	{

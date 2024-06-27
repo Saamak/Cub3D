@@ -43,13 +43,13 @@ typedef struct s_texture
 	char	*C;
 	int 	rgb_f;
 	int 	rgb_c;
-	int		bool_rgb;
 }				t_texture;
 
 typedef struct map_core
 {
 	int			data_ok;
 	int			texture_ok;
+	int			what;
 	char		*line;
 	t_map		*map;
 	t_texture	*texture;

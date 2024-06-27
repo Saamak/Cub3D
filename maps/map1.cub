@@ -3,15 +3,11 @@
 NO maps/path_to_the_north_texture
 
 SO maps/path_to_the_south_texture
-
-
-
-
-1WE maps/path_to_the_west_texture
+WE maps/path_to_the_west_texture
 EA maps/path_to_the_east_texture
-
-F 255,100,0
-C 225,30,0
+                p
+F 200,100,0
+C 200,30,0
 
 		1111111111111111111111111
 		1000000000110000000000001

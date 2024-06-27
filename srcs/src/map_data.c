@@ -2,7 +2,7 @@
 
 void	bit_shift_rgb(int r, int g, int b, t_core *c)
 {
-	if (c->texture->bool_rgb == 1)
+	if (c->what == 'C')
 	{
 		c->texture->rgb_c = 0;
 		c->texture->rgb_c += r << 16;
@@ -30,18 +30,31 @@ void	convert_rgb_F(t_core *c)
 	b = 0;
 	if (c == NULL || c->texture->F == NULL)
 	{
-		printf("   Erreur : les données sont NULL.\n");
+		printf("   | Erreur : les données sont NULL.\n");
 		exit(1);
 	}
 	tab = splitt(c->texture->F, ',');
-	r = atoi(tab[0]);
-	g = atoi(tab[1]);
-	b = atoi(tab[2]);
+	if ((tab[0] != NULL) && (tab[1] != NULL) && (tab[2] != NULL))
+	{
+		r = atoi(tab[0]);
+		g = atoi(tab[1]);
+		b = atoi(tab[2]);
+	}
+	else
+	{
+		printf(B_R"   | Erreur : les valeurs RGB ne sont pas correctes. \u274c \n"RESET);
+		c->map->error = 1;
+		free_tab(tab);
+		return ;
+	}
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 	{
 		printf(B_R"   Erreur : les valeurs RGB ne sont pas correctes. \u274c \n"RESET);
-		exit(1);
+		free_tab(tab);
+		c->map->error = 1;
+		return ;
 	}
+	c->what = 'F';
 	bit_shift_rgb(r, g, b, c);
 	c->map->F = 1;
 	free_tab(tab);
@@ -63,14 +76,27 @@ void	convert_rgb_C(t_core *c)
 		c->map->error = 1;
 	}
 	tab = splitt(c->texture->C, ',');
-	r = atoi(tab[0]);
-	g = atoi(tab[1]);
-	b = atoi(tab[2]);
+	if ((tab[0] != NULL) && (tab[1] != NULL) && (tab[2] != NULL))
+	{
+		r = atoi(tab[0]);
+		g = atoi(tab[1]);
+		b = atoi(tab[2]);
+	}
+	else
+	{
+		printf(B_R"   Erreur : les valeurs RGB ne sont pas correctes. \u274c \n"RESET);
+		c->map->error = 1;
+		free_tab(tab);
+		return ;
+	}
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 	{
 		printf(B_R"   Erreur : les valeurs RGB ne sont pas correctes. \u274c \n"RESET);
 		c->map->error = 1;
+		free_tab(tab);
+		return ;
 	}
+	c->what = 'C';
 	bit_shift_rgb(r, g, b, c);
 	c->map->C = 1;
 	free_tab(tab);
@@ -79,14 +105,8 @@ void	convert_rgb_C(t_core *c)
 void	check_color(t_core *c, char *line, char what)
 {
 	int i;
-	int r;
-	int g;
-	int b;
 
 	i = 1;
-	r = 0;
-	g = 0;
-	b = 0;
 	while (line[i] == ' ')
 		i++;
 	if (line[i] == '\n')
@@ -99,7 +119,7 @@ void	check_color(t_core *c, char *line, char what)
 		c->texture->F = ft_substr(line, i, str_len_modif(line) - i);
 		convert_rgb_F(c);
 	}
-	else
+	else if (what == 'C')
 	{
 		c->texture->C = ft_substr(line, i, str_len_modif(line) - i);
 		convert_rgb_C(c);
@@ -189,14 +209,20 @@ int	is_valid_data (char *line, t_core *c)
 	}
 	else if (*line == 'F')
 	{
+		printf("F\n");
 		check_color(c, line, 'F');
 	}
 	else if (*line == 'C')
 	{
+		printf("C\n");
 		check_color(c, line, 'C');
 	}
 	else
+	{
+		printf(B_R"   | Erreur : Invalid data \u274c \n"RESET);
+		c->map->error = 1;
 		return (0);
+	}
 	return (1);
 }
 

@@ -15,6 +15,7 @@ int main (int argc, char **argv)
 		free_parsing(c);
 	if(!read_hub(c) || c->map->error)
 		free_parsing(c);
+	print_texture(c);
 	printf("\n\n\n------------------------------------\n");
 	return 0;
 }
