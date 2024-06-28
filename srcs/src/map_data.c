@@ -1,105 +1,23 @@
 #include "../../includes/cub3D.h"
 
-void	bit_shift_rgb(int r, int g, int b, t_core *c)
+void	put_path_extend(t_core *c, int what, int space)
 {
-	if (c->what == 'C')
+	if (what == 3)
 	{
-		c->texture->rgb_c = 0;
-		c->texture->rgb_c += r << 16;
-		c->texture->rgb_c += g << 8;
-		c->texture->rgb_c += b;
+		c->texture->we = ft_substr(c->line, space + 3, str_len_modif(c->line) - space -3);
+		if (!file_exists(c->texture->we))
+			c->map->error = 1;
+		else
+			c->map->WE = 1;
 	}
-	else
+	if (what == 4)
 	{
-		c->texture->rgb_f = 0;
-		c->texture->rgb_f += r << 16;
-		c->texture->rgb_f += g << 8;
-		c->texture->rgb_f += b;
+		c->texture->ea = ft_substr(c->line, space + 3, str_len_modif(c->line) - space -3);
+		if (!file_exists(c->texture->ea))
+			c->map->error = 1;
+		else
+			c->map->EA = 1;
 	}
-}
-
-void	convert_rgb_F(t_core *c)
-{
-	int r;
-	int g;
-	int b;
-	char **tab;
-
-	r = 0;
-	g = 0;
-	b = 0;
-	if (c == NULL || c->texture->F == NULL)
-	{
-		printf("   | Erreur : les données sont NULL.\n");
-		exit(1);
-	}
-	tab = splitt(c->texture->F, ',');
-	if ((tab[0] != NULL) && (tab[1] != NULL) && (tab[2] != NULL))
-	{
-		r = atoi(tab[0]);
-		g = atoi(tab[1]);
-		b = atoi(tab[2]);
-	}
-	else
-	{
-		printf(B_R"   | Erreur : les valeurs RGB ne sont pas correctes. \u274c \n"RESET);
-		c->map->error = 1;
-		free_tab(tab);
-		return ;
-	}
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-	{
-		printf(B_R"   Erreur : les valeurs RGB ne sont pas correctes. \u274c \n"RESET);
-		free_tab(tab);
-		c->map->error = 1;
-		return ;
-	}
-	c->what = 'F';
-	bit_shift_rgb(r, g, b, c);
-	c->map->F = 1;
-	free_tab(tab);
-}
-
-void	convert_rgb_C(t_core *c)
-{
-	int r;
-	int g;
-	int b;
-	char **tab;
-
-	r = 0;
-	g = 0;
-	b = 0;
-	if (c == NULL || c->texture->C == NULL)
-	{
-		printf("   Erreur : les données sont NULL.\n");
-		c->map->error = 1;
-	}
-	tab = splitt(c->texture->C, ',');
-	if ((tab[0] != NULL) && (tab[1] != NULL) && (tab[2] != NULL))
-	{
-		r = atoi(tab[0]);
-		g = atoi(tab[1]);
-		b = atoi(tab[2]);
-	}
-	else
-	{
-		printf(B_R"   Erreur : les valeurs RGB ne sont pas correctes. \u274c \n"RESET);
-		c->map->error = 1;
-		free_tab(tab);
-		return ;
-	}
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-	{
-		printf(B_R"   Erreur : les valeurs RGB ne sont pas correctes. \u274c \n"RESET);
-		c->map->error = 1;
-		free_tab(tab);
-		return ;
-	}
-	c->what = 'C';
-	bit_shift_rgb(r, g, b, c);
-	c->map->C = 1;
-	free_tab(tab);
 }
 
 void	check_color(t_core *c, char *line, char what)
@@ -144,22 +62,9 @@ void	put_path(t_core *c, int what, int space)
 		else
 			c->map->SO = 1;
 	}
-	if (what == 3)
-	{
-		c->texture->we = ft_substr(c->line, space + 3, str_len_modif(c->line) - space -3);
-		if (!file_exists(c->texture->we))
-			c->map->error = 1;
-		else
-			c->map->WE = 1;
-	}
-	if (what == 4)
-	{
-		c->texture->ea = ft_substr(c->line, space + 3, str_len_modif(c->line) - space -3);
-		if (!file_exists(c->texture->ea))
-			c->map->error = 1;
-		else
-			c->map->EA = 1;
-	}
+	if (what == 3 || what == 4)
+		put_path_extend(c, what, space);
+
 }
 
 int	test_it(t_core *c, int what)
@@ -208,27 +113,17 @@ int	is_valid_data (char *line, t_core *c)
 			return (0);
 	}
 	else if (*line == 'F')
-	{
-		printf("F\n");
 		check_color(c, line, 'F');
-	}
 	else if (*line == 'C')
-	{
-		printf("C\n");
 		check_color(c, line, 'C');
-	}
 	else
-	{
-		printf(B_R"   | Erreur : Invalid data \u274c \n"RESET);
-		c->map->error = 1;
-		return (0);
-	}
+		error_data(c);
 	return (1);
 }
 
 void	take_map_data(t_core *c)
 {
-	printf(B_Y"\n -> Checking Data\n\n"RESET);
+	printf(B_Y"\n----| Checking Data\n\n"RESET);
 	while (!c->data_ok && !its_map(c->line) && c->line && !c->map->error)
 	{
 		while(c->line && c->line[0] == '\n')
@@ -249,8 +144,5 @@ void	take_map_data(t_core *c)
 			c->data_ok = 1;
 	}
 	if (!c->data_ok)
-	{
-		printf(B_R"   | Erreur : Missing data \u274c \n"RESET);
-		c->map->error = 1;
-	}
+		error_data(c);
 }

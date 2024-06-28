@@ -6,7 +6,7 @@
 #    By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/21 17:44:47 by kprigent          #+#    #+#              #
-#    Updated: 2024/06/24 14:31:24 by ppitzini         ###   ########.fr        #
+#    Updated: 2024/06/28 17:30:02 by ppitzini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ SRCS = srcs/src/main.c \
 		srcs/get_next_line/get_next_line_utils.c \
 		srcs/src/map_data.c \
 		srcs/src/texture_verifications.c \
+		srcs/src/error.c \
+		srcs/src/rgb_process.c \
 
 OBJTS = $(SRCS:.c=.o)
 

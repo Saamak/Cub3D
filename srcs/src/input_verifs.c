@@ -5,9 +5,10 @@ int	ac_checks(int ac)
 	if (ac != 2)
 	{
 		printf(B_R"   | Error : Program need 1 argument \u274c \n"RESET);
+		printf(BOLD"\n\n-----------------------------------------------\n"RESET);
 		return (1);
 	}
-	printf(B_G"   | Enought Arguments \xE2\x9C\x93 \n"RESET);
+	printf(B_G"   | Enought Arguments \xE2\x9C\x93 \n\n"RESET);
 	return(0);
 }
 
@@ -23,6 +24,7 @@ int	extension(char *str, char *ext)
 		if (str[i] != ext[j])
 		{
 			printf(B_R"   | Error : wrong file extension \u274c \n"RESET);
+			printf(BOLD"\n\n-----------------------------------------------\n"RESET);
 			return 1;
 		}
 		i--;

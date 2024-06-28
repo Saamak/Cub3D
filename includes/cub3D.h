@@ -48,7 +48,7 @@ typedef struct s_texture
 typedef struct map_core
 {
 	int			data_ok;
-	int			texture_ok;
+	// int			texture_ok;
 	int			what;
 	char		*line;
 	t_map		*map;
@@ -64,6 +64,9 @@ void	get_map_path(char *path, t_core *c);
 //Parsing
 int	read_hub(t_core *c);
 void	take_map_data(t_core *c);
+void	convert_rgb_C(t_core *c);
+void	bit_shift_rgb(int r, int g, int b, t_core *c);
+void	convert_rgb_F(t_core *c);
 
 //Init
 t_core	*init_core(t_core *core);
@@ -84,5 +87,9 @@ void	free_map(t_map *map);
 void	free_parsing(t_core *c);
 void	free_tab(char **tab);
 void	ft_exit(t_core *c);
+
+//error exit
+void	error_rgb(t_core *c, char **tab);
+void	error_data(t_core *c);
 
 #endif
