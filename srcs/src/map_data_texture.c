@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:27:35 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/01 18:33:38 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/01 19:04:42 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	put_path(t_core *c, int what, char *line)
 int	test_it(char *line, t_core *c, int what)
 {
 	line +=2;
-	printf(B_Y"   | Checking %s\n"RESET, line);
 	while (*line == ' ')
 		line++;
 	if (*line == '\n')
@@ -111,15 +110,13 @@ int	is_valid_data(char *line, t_core *c)
 void	take_map_data(t_core *c)
 {
 	printf(B_Y"\n----| Checking Data\n\n"RESET);
-	while (!c->data_ok && !its_map(c->line) && c->line && !c->map->error)
+	while (!c->data_ok && c->line && !c->map->error)
 	{
 		while (c->line && c->line[0] == '\n')
 		{
 			free(c->line);
 			c->line = get_next_line(c->map->fd);
 		}
-		if (its_map(c->line))
-			break ;
 		if (!is_valid_data(c->line, c))
 		{
 			c->map->error = 1;

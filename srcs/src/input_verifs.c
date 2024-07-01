@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:22:08 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/01 16:22:10 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/01 19:33:58 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ac_checks(int ac)
 		printf(BOLD END_LINE RESET);
 		return (1);
 	}
-	printf(B_G"   | Enought Arguments \xE2\x9C\x93 \n\n"RESET);
+	printf(B_G"   |Enought Arguments \xE2\x9C\x93 \n\n"RESET);
 	return (0);
 }
 

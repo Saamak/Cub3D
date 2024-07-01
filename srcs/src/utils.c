@@ -1,5 +1,29 @@
 #include "../../includes/cub3D.h"
 
+int	check_outter_map(t_core *c)
+{
+	int i;
+
+	i = 0;
+	printf("line = %s\n", c->line);
+	while(c->line[i] == ' ')
+		i++;
+	while (c->line[i] != '\0' && c->line[i] != '\n')
+	{
+		printf("c->line[%d] = %c\n", i, c->line[i]);
+		if (c->line[i] != '1')
+		{
+			printf(B_R"ERROR: Invalid mapp"RESET);
+			printf(BOLD END_LINE RESET);
+			free_parsing(c);
+			exit(0);
+		}
+		i++;
+	}
+	printf("ALL GOOD\n");
+	return (1);
+}
+
 char	*ft_strdup_end(const char *src)
 {
 	char *dest;
@@ -36,14 +60,11 @@ int its_map(char *line)
 			i++;
 		if (line[i] == '1')
 		{
-			printf(B_Y"   | Map found \xE2\x9C\x93 \n"RESET);
+			printf(B_G"   | Map found \xE2\x9C\x93 \n"RESET);
 			return (1);
 		}
 		else
-		{
-			printf(B_R"   | Error : Map not found \u274c \n"RESET);
 			return (0);
-		}
 	}
 	return (0);
 }

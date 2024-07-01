@@ -6,16 +6,13 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 18:37:35 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/01 18:40:04 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/01 19:14:28 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
-// void	read_map(t_core *c)
-// {
-// 	check_map_start(c);
-// 	skip_lines(c->map->fd, c);
-// 	c->map->map = ft_split(c->line, '\n');
-// 	free(c->line);
-// }
+void	read_map(t_core *c)
+{
+	check_outter_map(c);
+}

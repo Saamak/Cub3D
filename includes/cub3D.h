@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/01 18:13:43 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/01 20:07:40 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@
 # define RESET "\x1B[0m"
 
 // ERRORS MESSAGES
-# define ERROR_RGB "\n   | Erreur : Invalid RGB data. \u274c \n"
-# define ERROR_DATA "\n   | Erreur : Invalid data \u274c \n"
-# define ERROR_EXTENSION "   | Error : wrong file extension \u274c \n"
-# define ERROR_ARGUMENTS "   | Error : Wrong number of arguments \u274c \n"
-# define ERROR_EMPTY_MAP "\n   | Error : empty map \u274c \n"
-# define ERROR_SYNTAX "\n   | Error : syntax error \u274c \n"
-# define ERROR_OPEN_FILE "\n   | Error : Can't open file \u274c \n"
+# define ERROR_RGB "\n   |Error : Invalid RGB data. \u274c \n"
+# define ERROR_DATA "\n   |Error : Invalid data \u274c \n"
+# define ERROR_EXTENSION "   |Error : wrong file extension \u274c \n"
+# define ERROR_ARGUMENTS "   |Error : Wrong number of arguments \u274c \n"
+# define ERROR_EMPTY_MAP "\n   |Error : empty map \u274c \n"
+# define ERROR_SYNTAX "\n   |Error : syntax error \u274c \n"
+# define ERROR_OPEN_FILE "\n   |Error : Can't open file \u274c \n"
+# define ERROR_INVALID_MAP "\n   |Error : Invalid map \u274c \n"
 # define END_LINE "\n\n-----------------------------------------------\n"
 
 // STRUCTURES
@@ -92,6 +93,7 @@ void	bit_shift_rgb(int r, int g, int b, t_core *c);
 void	convert_rgb_F(t_core *c);
 void	color_process(char *line, t_core *c);
 void	check_color(t_core *c, char *line, char what);
+void	read_map(t_core *c);
 
 //Init
 t_core	*init_core(t_core *core);
@@ -107,6 +109,8 @@ char	**splitt(char *s, char c);
 int		str_len_modif(char *s);
 int		its_map(char *line);
 char	*ft_strdup_end(const char *src);
+int		check_outter_map(t_core *c);
+int is_digit(char *str);
 
 //free
 void	free_map(t_map *map);
@@ -118,5 +122,6 @@ void	ft_exit(t_core *c);
 void	error_rgb(t_core *c, char **tab);
 void	error_data(t_core *c);
 void	textures_error_alloc(t_core *c);
+void	error_map(t_core *c);
 
 #endif

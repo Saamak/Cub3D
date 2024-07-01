@@ -6,7 +6,7 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:24:07 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/01 18:44:56 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/01 20:12:50 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	check_map_start(t_core *c)
 {
-	printf("line = %s\n", c->line);
 	if (!c->line || c->line[0] != '\n')
 	{
 		c->map->error = 1;
-		printf(B_R ERROR_SYNTAX RESET);
+		printf(B_R ERROR_INVALID_MAP RESET);
 		printf(BOLD END_LINE RESET);
 		free_parsing(c);
 		exit(0);
@@ -27,10 +26,15 @@ void	check_map_start(t_core *c)
 	{
 		free(c->line);
 		c->line = get_next_line(c->map->fd);
+		if (c->line[0] != '\n' && !is_digit(c->line))
+		{
+			printf("line = %s\n", c->line);
+			error_map(c);
+		}
 		if (!c->line)
 		{
 			c->map->error = 1;
-			printf(B_R ERROR_SYNTAX RESET);
+			printf(B_R ERROR_INVALID_MAP RESET);
 			printf(BOLD END_LINE RESET);
 			free_parsing(c);
 			exit(0);
@@ -71,7 +75,7 @@ int	read_hub(t_core *c)
 	{
 		printf(B_G"\n\n-----------------| Data are corrects \xE2\x9C\x93 |-------------\n"RESET);
 		check_map_start(c);
+		read_map(c);
 	}
-	// read_map(c);
 	return (1);
 }

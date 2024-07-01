@@ -6,17 +6,25 @@
 /*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:18:03 by ppitzini          #+#    #+#             */
-/*   Updated: 2024/07/01 16:21:04 by ppitzini         ###   ########.fr       */
+/*   Updated: 2024/07/01 20:07:06 by ppitzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D.h"
 
+
+void error_map(t_core *c)
+{
+	printf(B_R ERROR_INVALID_MAP RESET);
+	printf(BOLD END_LINE RESET);
+	free_parsing(c);
+	exit(0);
+}
+
 void	textures_error_alloc(t_core *c)
 {
-	perror("Error allocating memory for texture");
-	if (c->map)
-		free(c->map);
+	printf (B_R"   |Error : Double textures \u274c \n" RESET);
+	free_parsing(c);
 	exit(EXIT_FAILURE);
 }
 
