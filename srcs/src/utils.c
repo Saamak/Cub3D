@@ -40,7 +40,10 @@ int its_map(char *line)
 			return (1);
 		}
 		else
+		{
+			printf(B_R"   | Error : Map not found \u274c \n"RESET);
 			return (0);
+		}
 	}
 	return (0);
 }
