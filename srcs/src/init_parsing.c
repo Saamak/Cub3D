@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_parsing.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/01 16:09:19 by ppitzini          #+#    #+#             */
+/*   Updated: 2024/07/01 16:11:55 by ppitzini         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3D.h"
 
 t_core	*init_texture(t_core *c)
@@ -14,7 +26,7 @@ t_core	*init_texture(t_core *c)
 	c->map->EA = 0;
 	c->map->C = 0;
 	c->map->F = 0;
-	return c;
+	return (c);
 }
 
 t_core	*init_core(t_core *c)
@@ -42,9 +54,6 @@ t_core	*init_core(t_core *c)
 	c->what = 0;
 	c->data_ok = 0;
 	if (!c->texture)
-	{
-		perror("Error allocating memory for texture");
-		exit(EXIT_FAILURE);
-	}
+		textures_error_alloc(c);
 	return (init_texture(c));
 }

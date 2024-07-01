@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/01 16:09:08 by ppitzini          #+#    #+#             */
+/*   Updated: 2024/07/01 16:18:24 by ppitzini         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3D.h"
 
 void	ft_exit(t_core *c)
@@ -26,10 +38,9 @@ void	ft_exit(t_core *c)
 	exit(1);
 }
 
-
 void	free_tab(char **tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (tab[i])
@@ -42,7 +53,7 @@ void	free_tab(char **tab)
 
 void	free_map(t_map *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (map->map == NULL)
@@ -53,6 +64,24 @@ void	free_map(t_map *map)
 		i++;
 	}
 	free(map->map);
+}
+
+void	free_texture(t_core *c)
+{
+	if (c->texture->no)
+		free(c->texture->no);
+	if (c->texture->so)
+		free(c->texture->so);
+	if (c->texture->we)
+		free(c->texture->we);
+	if (c->texture->ea)
+		free(c->texture->ea);
+	if (c->texture->C)
+		free(c->texture->C);
+	if (c->texture->F)
+		free(c->texture->F);
+	if (c->texture)
+		free(c->texture);
 }
 
 void	free_parsing(t_core *c)
@@ -70,21 +99,7 @@ void	free_parsing(t_core *c)
 			free(c->map);
 		}
 		if (c->texture)
-		{
-			if (c->texture->no)
-				free(c->texture->no);
-			if (c->texture->so)
-				free(c->texture->so);
-			if (c->texture->we)
-				free(c->texture->we);
-			if (c->texture->ea)
-				free(c->texture->ea);
-			if (c->texture->F)
-				free(c->texture->F);
-			if (c->texture->C)
-				free(c->texture->C);
-			free(c->texture);
-		}
+			free_texture(c);
 		free(c);
 	}
 	exit(1);

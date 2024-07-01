@@ -6,7 +6,7 @@
 #    By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/21 17:44:47 by kprigent          #+#    #+#              #
-#    Updated: 2024/06/28 17:30:02 by ppitzini         ###   ########.fr        #
+#    Updated: 2024/07/01 16:36:35 by ppitzini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,11 @@ SRCS = srcs/src/main.c \
 		srcs/src/free.c \
 		srcs/get_next_line/get_next_line.c \
 		srcs/get_next_line/get_next_line_utils.c \
-		srcs/src/map_data.c \
 		srcs/src/texture_verifications.c \
 		srcs/src/error.c \
 		srcs/src/rgb_process.c \
+		srcs/src/map_data_texture.c \
+		srcs/src/map_data_color.c \
 
 OBJTS = $(SRCS:.c=.o)
 

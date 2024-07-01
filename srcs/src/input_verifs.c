@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_verifs.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/01 16:22:08 by ppitzini          #+#    #+#             */
+/*   Updated: 2024/07/01 16:22:10 by ppitzini         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3D.h"
 
 int	ac_checks(int ac)
 {
 	if (ac != 2)
 	{
-		printf(B_R"   | Error : Program need 1 argument \u274c \n"RESET);
-		printf(BOLD"\n\n-----------------------------------------------\n"RESET);
+		printf(B_R ERROR_ARGUMENTS RESET);
+		printf(BOLD END_LINE RESET);
 		return (1);
 	}
 	printf(B_G"   | Enought Arguments \xE2\x9C\x93 \n\n"RESET);
-	return(0);
+	return (0);
 }
 
 int	extension(char *str, char *ext)
@@ -23,9 +35,9 @@ int	extension(char *str, char *ext)
 	{
 		if (str[i] != ext[j])
 		{
-			printf(B_R"   | Error : wrong file extension \u274c \n"RESET);
-			printf(BOLD"\n\n-----------------------------------------------\n"RESET);
-			return 1;
+			printf(B_R ERROR_EXTENSION RESET);
+			printf(BOLD END_LINE RESET);
+			return (1);
 		}
 		i--;
 		j--;
@@ -45,7 +57,7 @@ int	first_checks_hub(int ac, char **av, t_core *c)
 		c->map->error = 1;
 		return (1);
 	}
-	if(!file_exists(av[1]))
+	if (!file_exists(av[1]))
 	{
 		c->map->error = 1;
 		return (1);

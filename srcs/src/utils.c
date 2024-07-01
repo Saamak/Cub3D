@@ -1,5 +1,30 @@
 #include "../../includes/cub3D.h"
 
+char	*ft_strdup_end(const char *src)
+{
+	char *dest;
+	int i;
+
+	i = 0;
+	while (src[i] != '\0' && src[i] != '\n')
+	{
+		i++;
+	}
+	dest = (char *)malloc(sizeof(char) * (i + 1));
+	if (!dest)
+	{
+		return NULL;
+	}
+	i = 0;
+	while (src[i] != '\0' && src[i] != '\n')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
 int its_map(char *line)
 {
 	int i;
@@ -19,7 +44,6 @@ int its_map(char *line)
 	}
 	return (0);
 }
-
 
 int	count_word(char *s, char c)
 {

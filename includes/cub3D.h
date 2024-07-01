@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ppitzini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/01 16:24:58 by ppitzini          #+#    #+#             */
+/*   Updated: 2024/07/01 18:13:43 by ppitzini         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 # include <math.h>
@@ -8,6 +20,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+// COLORS
 # define R   "\x1B[31m"
 # define G   "\x1B[32m"
 # define Y   "\x1B[33m"
@@ -17,6 +30,17 @@
 # define BOLD "\x1B[1m"
 # define RESET "\x1B[0m"
 
+// ERRORS MESSAGES
+# define ERROR_RGB "\n   | Erreur : Invalid RGB data. \u274c \n"
+# define ERROR_DATA "\n   | Erreur : Invalid data \u274c \n"
+# define ERROR_EXTENSION "   | Error : wrong file extension \u274c \n"
+# define ERROR_ARGUMENTS "   | Error : Wrong number of arguments \u274c \n"
+# define ERROR_EMPTY_MAP "\n   | Error : empty map \u274c \n"
+# define ERROR_SYNTAX "\n   | Error : syntax error \u274c \n"
+# define ERROR_OPEN_FILE "\n   | Error : Can't open file \u274c \n"
+# define END_LINE "\n\n-----------------------------------------------\n"
+
+// STRUCTURES
 typedef struct s_map
 {
 	int		error;
@@ -55,18 +79,19 @@ typedef struct map_core
 	t_texture	*texture;
 }			t_core;
 
-
 //Input_verifs
 int		file_exists(char *filename);
 int		first_checks_hub(int ac, char **av, t_core *core);
 void	get_map_path(char *path, t_core *c);
 
 //Parsing
-int	read_hub(t_core *c);
+int		read_hub(t_core *c);
 void	take_map_data(t_core *c);
 void	convert_rgb_C(t_core *c);
 void	bit_shift_rgb(int r, int g, int b, t_core *c);
 void	convert_rgb_F(t_core *c);
+void	color_process(char *line, t_core *c);
+void	check_color(t_core *c, char *line, char what);
 
 //Init
 t_core	*init_core(t_core *core);
@@ -81,6 +106,7 @@ char	*ft_substr(char *s, int start, int len);
 char	**splitt(char *s, char c);
 int		str_len_modif(char *s);
 int		its_map(char *line);
+char	*ft_strdup_end(const char *src);
 
 //free
 void	free_map(t_map *map);
@@ -91,5 +117,6 @@ void	ft_exit(t_core *c);
 //error exit
 void	error_rgb(t_core *c, char **tab);
 void	error_data(t_core *c);
+void	textures_error_alloc(t_core *c);
 
 #endif
